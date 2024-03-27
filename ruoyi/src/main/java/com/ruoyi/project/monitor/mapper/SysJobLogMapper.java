@@ -3,12 +3,14 @@ package com.ruoyi.project.monitor.mapper;
 import java.util.List;
 
 import com.ruoyi.project.monitor.domain.SysJobLog;
+import org.mapstruct.Mapper;
 
 /**
  * 调度任务日志信息 数据层
  *
  * @author ruoyi
  */
+@Mapper
 public interface SysJobLogMapper {
     /**
      * 获取quartz调度器日志的计划任务

@@ -12,7 +12,6 @@
         <!-- <setting name="mapUnderscoreToCamelCase" value="true"/>  驼峰式命名 -->
     </settings>
     <plugins>
-        <plugin interceptor="com.ruoyi.framework.aspectj.MybatisInterceptor">
-        </plugin>
+        <plugin interceptor="com.ruoyi.framework.aspectj.MybatisInterceptor"></plugin>
     </plugins>
 </configuration>

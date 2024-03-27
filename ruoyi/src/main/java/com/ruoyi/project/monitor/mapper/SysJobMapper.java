@@ -3,12 +3,14 @@ package com.ruoyi.project.monitor.mapper;
 import java.util.List;
 
 import com.ruoyi.project.monitor.domain.SysJob;
+import org.mapstruct.Mapper;
 
 /**
  * 调度任务信息 数据层
  *
  * @author ruoyi
  */
+@Mapper
 public interface SysJobMapper {
     /**
      * 查询调度任务日志集合

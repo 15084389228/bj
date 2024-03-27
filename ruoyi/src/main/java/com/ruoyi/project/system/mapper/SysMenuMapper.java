@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import com.ruoyi.project.system.domain.SysMenu;
+import org.mapstruct.Mapper;
 
 /**
  * 菜单表 数据层
  *
  * @author ruoyi
  */
+@Mapper
 public interface SysMenuMapper {
     /**
      * 查询系统菜单列表

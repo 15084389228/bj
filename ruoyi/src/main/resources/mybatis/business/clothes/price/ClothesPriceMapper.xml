@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.business.clothes.price.mapper.ClothesPriceMapper">
+
+    <resultMap type="com.ruoyi.project.business.clothes.price.domain.ClothesPrice" id="ClothesPriceMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="clothesType" column="clothes_type" jdbcType="INTEGER"/>
+        <result property="clothesName" column="clothes_name" jdbcType="VARCHAR"/>
+        <result property="clothesPrice" column="clothes_price" jdbcType="NUMERIC"/>
+        <result property="clothesGroup" column="clothes_group" jdbcType="INTEGER"/>
+        <result property="orderNum" column="order_num" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="delFlag" column="del_flag" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ClothesPriceMap">
+        select id,clothes_type, clothes_name, clothes_price, clothes_group, order_num, status, del_flag,
+                                create_by, create_time, update_by, update_time
+
+        from bu_clothes_price
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ClothesPriceMap">
+        select
+        clothes_type, clothes_name, clothes_price, clothes_group, order_num, status, del_flag,
+        create_by, create_time, update_by, update_time
+
+        from bu_clothes_price
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="clothesType != null">
+                and clothes_type = #{clothesType}
+            </if>
+            <if test="clothesName != null and clothesName != ''">
+                and clothes_name = #{clothesName}
+            </if>
+            <if test="clothesPrice != null">
+                and clothes_price = #{clothesPrice}
+            </if>
+            <if test="clothesGroup != null">
+                and clothes_group = #{clothesGroup}
+            </if>
+            <if test="orderNum != null">
+                and order_num = #{orderNum}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                and del_flag = #{delFlag}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from bu_clothes_price
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="clothesType != null">
+                and clothes_type = #{clothesType}
+            </if>
+            <if test="clothesName != null and clothesName != ''">
+                and clothes_name = #{clothesName}
+            </if>
+            <if test="clothesPrice != null">
+                and clothes_price = #{clothesPrice}
+            </if>
+            <if test="clothesGroup != null">
+                and clothes_group = #{clothesGroup}
+            </if>
+            <if test="orderNum != null">
+                and order_num = #{orderNum}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                and del_flag = #{delFlag}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+    <select id="list" resultMap="ClothesPriceMap">
+        select id,clothes_type, clothes_name, clothes_price, clothes_group, order_num, status, del_flag,
+        create_by, create_time, update_by, update_time
+
+        from bu_clothes_price
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="clothesType != null">
+                and clothes_type = #{clothesType}
+            </if>
+            <if test="clothesName != null and clothesName != ''">
+                and clothes_name = #{clothesName}
+            </if>
+            <if test="clothesPrice != null">
+                and clothes_price = #{clothesPrice}
+            </if>
+            <if test="clothesGroup != null">
+                and clothes_group = #{clothesGroup}
+            </if>
+            <if test="orderNum != null">
+                and order_num = #{orderNum}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                and del_flag = #{delFlag}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into bu_clothes_price(clothes_type, clothes_name, clothes_price, clothes_group, order_num, status,
+                                     del_flag, create_by, create_time, update_by, update_time)
+        values (#{clothesType}, #{clothesName}, #{clothesPrice}, #{clothesGroup}, #{orderNum}, #{status}, #{delFlag},
+                #{createBy}, #{createTime}, #{updateBy}, #{updateTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into bu_clothes_price(clothes_type, clothes_name, clothes_price, clothes_group, order_num, status,
+        del_flag, create_by, create_time, update_by, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.clothesType}, #{entity.clothesName}, #{entity.clothesPrice}, #{entity.clothesGroup},
+            #{entity.orderNum}, #{entity.status}, #{entity.delFlag}, #{entity.createBy}, #{entity.createTime},
+            #{entity.updateBy}, #{entity.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into bu_clothes_price(clothes_type, clothes_name, clothes_price, clothes_group, order_num, status,
+        del_flag, create_by, create_time, update_by, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.clothesType}, #{entity.clothesName}, #{entity.clothesPrice}, #{entity.clothesGroup},
+            #{entity.orderNum}, #{entity.status}, #{entity.delFlag}, #{entity.createBy}, #{entity.createTime},
+            #{entity.updateBy}, #{entity.updateTime})
+        </foreach>
+        on duplicate key update
+        clothes_type = values(clothes_type),
+        clothes_name = values(clothes_name),
+        clothes_price = values(clothes_price),
+        clothes_group = values(clothes_group),
+        order_num = values(order_num),
+        status = values(status),
+        del_flag = values(del_flag),
+        create_by = values(create_by),
+        create_time = values(create_time),
+        update_by = values(update_by),
+        update_time = values(update_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update bu_clothes_price
+        <set>
+            <if test="clothesType != null">
+                clothes_type = #{clothesType},
+            </if>
+            <if test="clothesName != null and clothesName != ''">
+                clothes_name = #{clothesName},
+            </if>
+            <if test="clothesPrice != null">
+                clothes_price = #{clothesPrice},
+            </if>
+            <if test="clothesGroup != null">
+                clothes_group = #{clothesGroup},
+            </if>
+            <if test="orderNum != null">
+                order_num = #{orderNum},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                del_flag = #{delFlag},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from bu_clothes_price
+        where id = #{id}
+    </delete>
+    <delete id="deleteByIds">
+        delete
+        from bu_clothes_price
+        where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
+

@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import com.ruoyi.project.system.domain.SysDept;
+import org.mapstruct.Mapper;
 
 /**
  * 部门管理 数据层
  *
  * @author ruoyi
  */
+@Mapper
 public interface SysDeptMapper {
     /**
      * 查询部门管理数据

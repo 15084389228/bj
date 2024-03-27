@@ -3,12 +3,14 @@ package com.ruoyi.project.system.mapper;
 import java.util.List;
 
 import com.ruoyi.project.system.domain.SysUserPost;
+import org.mapstruct.Mapper;
 
 /**
  * 用户与岗位关联表 数据层
  *
  * @author ruoyi
  */
+@Mapper
 public interface SysUserPostMapper {
     /**
      * 通过用户ID删除用户和岗位关联

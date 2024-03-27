@@ -3,12 +3,14 @@ package com.ruoyi.project.system.mapper;
 import java.util.List;
 
 import com.ruoyi.project.system.domain.SysNotice;
+import org.mapstruct.Mapper;
 
 /**
  * 通知公告表 数据层
  *
  * @author ruoyi
  */
+@Mapper
 public interface SysNoticeMapper {
     /**
      * 查询公告信息

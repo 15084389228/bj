@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import com.ruoyi.project.system.domain.SysDictData;
+import org.mapstruct.Mapper;
 
 /**
  * 字典表 数据层
  *
  * @author ruoyi
  */
+@Mapper
 public interface SysDictDataMapper {
     /**
      * 根据条件分页查询字典数据

@@ -3,12 +3,14 @@ package com.ruoyi.project.system.mapper;
 import java.util.List;
 
 import com.ruoyi.project.system.domain.SysPost;
+import org.mapstruct.Mapper;
 
 /**
  * 岗位信息 数据层
  *
  * @author ruoyi
  */
+@Mapper
 public interface SysPostMapper {
     /**
      * 查询岗位数据集合

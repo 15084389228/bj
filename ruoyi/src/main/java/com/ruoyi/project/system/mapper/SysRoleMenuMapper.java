@@ -3,12 +3,14 @@ package com.ruoyi.project.system.mapper;
 import java.util.List;
 
 import com.ruoyi.project.system.domain.SysRoleMenu;
+import org.mapstruct.Mapper;
 
 /**
  * 角色与菜单关联表 数据层
  *
  * @author ruoyi
  */
+@Mapper
 public interface SysRoleMenuMapper {
     /**
      * 查询菜单使用数量

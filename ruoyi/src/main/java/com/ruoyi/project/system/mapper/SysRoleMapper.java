@@ -3,12 +3,14 @@ package com.ruoyi.project.system.mapper;
 import java.util.List;
 
 import com.ruoyi.project.system.domain.SysRole;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 角色表 数据层
  *
  * @author ruoyi
  */
+@Mapper
 public interface SysRoleMapper {
     /**
      * 根据条件分页查询角色数据

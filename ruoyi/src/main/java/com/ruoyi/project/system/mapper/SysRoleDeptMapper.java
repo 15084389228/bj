@@ -3,12 +3,14 @@ package com.ruoyi.project.system.mapper;
 import java.util.List;
 
 import com.ruoyi.project.system.domain.SysRoleDept;
+import org.mapstruct.Mapper;
 
 /**
  * 角色与部门关联表 数据层
  *
  * @author ruoyi
  */
+@Mapper
 public interface SysRoleDeptMapper {
     /**
      * 通过角色ID删除角色和部门关联

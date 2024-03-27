@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import com.ruoyi.project.system.domain.SysUserRole;
+import org.mapstruct.Mapper;
 
 /**
  * 用户与角色关联表 数据层
  *
  * @author ruoyi
  */
+@Mapper
 public interface SysUserRoleMapper {
     /**
      * 通过用户ID删除用户和角色关联
