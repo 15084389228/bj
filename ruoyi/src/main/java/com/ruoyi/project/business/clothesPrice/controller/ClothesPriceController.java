@@ -1,13 +1,18 @@
 package com.ruoyi.project.business.clothesPrice.controller;
 
+import com.ruoyi.framework.web.controller.BaseController;
+import com.ruoyi.framework.web.domain.AjaxResult;
+import com.ruoyi.framework.web.page.TableDataInfo;
 import com.ruoyi.project.business.clothesPrice.domain.ClothesPrice;
 import com.ruoyi.project.business.clothesPrice.service.ClothesPriceService;
+import com.ruoyi.project.system.domain.SysConfig;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 衣服价格表(ClothesPrice)表控制层
@@ -16,8 +21,8 @@ import javax.annotation.Resource;
  * @since 2024-03-13 10:55:19
  */
 @RestController
-@RequestMapping("clothesPrice")
-public class ClothesPriceController {
+@RequestMapping("business/clothesPrice")
+public class ClothesPriceController extends BaseController {
     /**
      * 服务对象
      */
@@ -31,9 +36,12 @@ public class ClothesPriceController {
      * @param pageRequest  分页对象
      * @return 查询结果
      */
-    @GetMapping
-    public ResponseEntity<Page<ClothesPrice>> queryByPage(ClothesPrice clothesPrice, PageRequest pageRequest) {
-        return ResponseEntity.ok(this.clothesPriceService.queryByPage(clothesPrice, pageRequest));
+    @GetMapping("/list")
+    public TableDataInfo queryByPage(ClothesPrice clothesPrice) {
+        startPage();
+        List<ClothesPrice> list = clothesPriceService.queryByPage(clothesPrice);
+        return getDataTable(list);
+
     }
 
     /**
@@ -43,8 +51,8 @@ public class ClothesPriceController {
      * @return 单条数据
      */
     @GetMapping("{id}")
-    public ResponseEntity<ClothesPrice> queryById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(this.clothesPriceService.queryById(id));
+    public AjaxResult queryById(@PathVariable("id") Integer id) {
+        return AjaxResult.success(this.clothesPriceService.queryById(id));
     }
 
     /**
@@ -54,8 +62,8 @@ public class ClothesPriceController {
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<ClothesPrice> add(ClothesPrice clothesPrice) {
-        return ResponseEntity.ok(this.clothesPriceService.insert(clothesPrice));
+    public AjaxResult add(@RequestBody ClothesPrice clothesPrice) {
+        return AjaxResult.success(this.clothesPriceService.insert(clothesPrice));
     }
 
     /**
@@ -65,8 +73,8 @@ public class ClothesPriceController {
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<ClothesPrice> edit(ClothesPrice clothesPrice) {
-        return ResponseEntity.ok(this.clothesPriceService.update(clothesPrice));
+    public AjaxResult edit(@RequestBody ClothesPrice clothesPrice) {
+        return AjaxResult.success(this.clothesPriceService.update(clothesPrice));
     }
 
     /**
@@ -75,9 +83,9 @@ public class ClothesPriceController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @DeleteMapping
-    public ResponseEntity<Boolean> deleteById(Integer id) {
-        return ResponseEntity.ok(this.clothesPriceService.deleteById(id));
+    @DeleteMapping("/{ids}")
+    public AjaxResult deleteById(@PathVariable("ids") Integer[] ids) {
+        return AjaxResult.success(this.clothesPriceService.deleteByIds(ids));
     }
 
 }

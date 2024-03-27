@@ -1,8 +1,8 @@
 package com.ruoyi.project.business.clothesPrice.service;
 
 import com.ruoyi.project.business.clothesPrice.domain.ClothesPrice;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+
+import java.util.List;
 
 /**
  * 衣服价格表(ClothesPrice)表服务接口
@@ -27,7 +27,7 @@ public interface ClothesPriceService {
      * @param pageRequest  分页对象
      * @return 查询结果
      */
-    Page<ClothesPrice> queryByPage(ClothesPrice clothesPrice, PageRequest pageRequest);
+    List<ClothesPrice> queryByPage(ClothesPrice clothesPrice);
 
     /**
      * 新增数据
@@ -53,4 +53,5 @@ public interface ClothesPriceService {
      */
     boolean deleteById(Integer id);
 
+    boolean deleteByIds(Integer[] ids);
 }

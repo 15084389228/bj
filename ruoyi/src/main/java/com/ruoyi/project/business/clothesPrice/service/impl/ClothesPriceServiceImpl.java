@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 衣服价格表(ClothesPrice)表服务实现类
@@ -40,9 +41,8 @@ public class ClothesPriceServiceImpl implements ClothesPriceService {
      * @return 查询结果
      */
     @Override
-    public Page<ClothesPrice> queryByPage(ClothesPrice clothesPrice, PageRequest pageRequest) {
-        long total = this.clothesPriceDao.count(clothesPrice);
-        return new PageImpl<>(this.clothesPriceDao.queryAllByLimit(clothesPrice, pageRequest), pageRequest, total);
+    public List<ClothesPrice> queryByPage(ClothesPrice clothesPrice) {
+       return this.clothesPriceDao.list(clothesPrice);
     }
 
     /**
@@ -78,5 +78,10 @@ public class ClothesPriceServiceImpl implements ClothesPriceService {
     @Override
     public boolean deleteById(Integer id) {
         return this.clothesPriceDao.deleteById(id) > 0;
+    }
+
+    @Override
+    public boolean deleteByIds(Integer[] ids) {
+        return this.clothesPriceDao.deleteByIds(ids) > 0;
     }
 }

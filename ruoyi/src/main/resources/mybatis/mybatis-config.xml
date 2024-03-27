@@ -11,5 +11,8 @@
         <setting name="logImpl" value="SLF4J"/> <!-- 指定 MyBatis 所用日志的具体实现 -->
         <!-- <setting name="mapUnderscoreToCamelCase" value="true"/>  驼峰式命名 -->
     </settings>
-
+    <plugins>
+        <plugin interceptor="com.ruoyi.framework.aspectj.MybatisInterceptor">
+        </plugin>
+    </plugins>
 </configuration>

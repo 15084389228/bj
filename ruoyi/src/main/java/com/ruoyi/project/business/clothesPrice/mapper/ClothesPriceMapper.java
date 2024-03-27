@@ -80,5 +80,8 @@ public interface ClothesPriceMapper {
      */
     int deleteById(Integer id);
 
+    List<ClothesPrice> list(ClothesPrice clothesPrice);
+
+    int deleteByIds(Integer[] ids);
 }
 

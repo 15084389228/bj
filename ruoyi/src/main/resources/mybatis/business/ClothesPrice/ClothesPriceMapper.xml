@@ -19,8 +19,8 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="ClothesPriceMap">
-        select bu_clothes_price(clothes_type, clothes_name, clothes_price, clothes_group, order_num, status, del_flag,
-                                create_by, create_time, update_by, update_time)
+        select id,clothes_type, clothes_name, clothes_price, clothes_group, order_num, status, del_flag,
+                                create_by, create_time, update_by, update_time
 
         from bu_clothes_price
         where id = #{id}
@@ -29,8 +29,8 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ClothesPriceMap">
         select
-        bu_clothes_price(clothes_type, clothes_name, clothes_price, clothes_group, order_num, status, del_flag,
-        create_by, create_time, update_by, update_time)
+        clothes_type, clothes_name, clothes_price, clothes_group, order_num, status, del_flag,
+        create_by, create_time, update_by, update_time
 
         from bu_clothes_price
         <where>
@@ -77,6 +77,50 @@
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
+        from bu_clothes_price
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="clothesType != null">
+                and clothes_type = #{clothesType}
+            </if>
+            <if test="clothesName != null and clothesName != ''">
+                and clothes_name = #{clothesName}
+            </if>
+            <if test="clothesPrice != null">
+                and clothes_price = #{clothesPrice}
+            </if>
+            <if test="clothesGroup != null">
+                and clothes_group = #{clothesGroup}
+            </if>
+            <if test="orderNum != null">
+                and order_num = #{orderNum}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                and del_flag = #{delFlag}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+    <select id="list" resultMap="ClothesPriceMap">
+        select id,clothes_type, clothes_name, clothes_price, clothes_group, order_num, status, del_flag,
+        create_by, create_time, update_by, update_time
+
         from bu_clothes_price
         <where>
             <if test="id != null">
@@ -206,6 +250,14 @@
         delete
         from bu_clothes_price
         where id = #{id}
+    </delete>
+    <delete id="deleteByIds">
+        delete
+        from bu_clothes_price
+        where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </delete>
 
 </mapper>

@@ -33,6 +33,7 @@
         <jwt.version>0.9.0</jwt.version>
         <swagger.version>2.9.2</swagger.version>
         <poi.version>3.17</poi.version>
+        <lombok.version>1.18.30</lombok.version>
         <oshi.version>3.9.1</oshi.version>
         <velocity.version>1.7</velocity.version>
     </properties>
@@ -262,6 +263,12 @@
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
             <version>1.1.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
 
     </dependencies>
