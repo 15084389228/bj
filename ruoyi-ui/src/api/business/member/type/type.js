@@ -51,3 +51,10 @@ export function exportType(query) {
         params: query
     })
 }
+// 导出会员
+export function getMemberType() {
+  return request({
+    url: '/business/member/type/select',
+    method: 'get'
+  })
+}

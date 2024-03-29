@@ -51,3 +51,11 @@ export function exportInfo(query) {
         params: query
     })
 }
+// 充值
+export function recharge(data) {
+    return request({
+        url: '/business/member/info/recharge',
+        method: 'put',
+        data: data
+    })
+}

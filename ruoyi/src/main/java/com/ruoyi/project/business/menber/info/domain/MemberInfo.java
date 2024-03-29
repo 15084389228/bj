@@ -11,6 +11,7 @@ import com.ruoyi.framework.aspectj.lang.annotation.Excel;
 import com.ruoyi.framework.web.domain.BaseEntity;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 会员对象 bu_member_info
@@ -69,6 +70,7 @@ public class MemberInfo extends BaseEntity {
      */
     private String delFlag;
     private MemberType memberType;
+    private List<Long> ids;
 
     public void recharge(BigDecimal rechargeAmount) {
         BigDecimal add = this.memberPrice.add(rechargeAmount);

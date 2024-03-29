@@ -88,9 +88,10 @@ public class MemberInfoController extends BaseController {
         return toAjax(buMemberInfoService.deleteBuMemberInfoByIds(ids));
     }
     @PreAuthorize("@ss.hasPermi('system:info:add')")
-    @Log(title = "会员", businessType = BusinessType.INSERT)
+    @Log(title = "会员充值", businessType = BusinessType.INSERT)
     @PutMapping("/recharge")
     public AjaxResult recharge(@RequestBody MemberInfo memberInfo) {
         return toAjax(buMemberInfoService.recharge(memberInfo));
     }
+
 }

@@ -87,4 +87,9 @@ public class MemberTypeController extends BaseController {
     public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(buMemberTypeService.deleteByIds(ids));
     }
+
+    @GetMapping("/select")
+    public AjaxResult getSelect() {
+        return AjaxResult.success(buMemberTypeService.selectBuMemberTypeList(new MemberType()));
+    }
 }

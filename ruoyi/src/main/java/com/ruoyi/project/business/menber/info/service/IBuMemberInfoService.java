@@ -1,6 +1,7 @@
 package com.ruoyi.project.business.menber.info.service;
 
 import com.ruoyi.project.business.menber.info.domain.MemberInfo;
+import com.ruoyi.project.business.menber.type.domain.MemberType;
 
 import java.math.BigDecimal;
 import java.util.List;

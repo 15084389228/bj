@@ -4,6 +4,7 @@ import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.project.business.menber.info.domain.MemberInfo;
 import com.ruoyi.project.business.menber.info.mapper.MemberInfoMapper;
 import com.ruoyi.project.business.menber.info.service.IBuMemberInfoService;
+import com.ruoyi.project.business.menber.type.domain.MemberType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,9 +97,11 @@ public class MemberInfoServiceImpl implements IBuMemberInfoService {
      */
     @Override
     public int recharge(MemberInfo param) {
-        MemberInfo memberInfo = this.selectBuMemberInfoById(param.getId());
-        memberInfo.recharge(param.getMemberPrice());
-        return buMemberInfoMapper.updateMemberPrice(memberInfo);
+        List<MemberInfo> memberInfoList = buMemberInfoMapper.listByIds(param.getIds());
+        memberInfoList.forEach(memberInfo -> {
+            memberInfo.recharge(param.getMemberPrice());
+        });
+        return buMemberInfoMapper.updateMemberPriceBatch(memberInfoList);
     }
 
     @Override

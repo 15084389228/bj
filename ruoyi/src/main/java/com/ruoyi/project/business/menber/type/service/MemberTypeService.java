@@ -58,4 +58,5 @@ public interface MemberTypeService {
     int deleteByIds(Long[] ids);
 
     List<MemberType> selectBuMemberTypeList(MemberType buMemberType);
+
 }

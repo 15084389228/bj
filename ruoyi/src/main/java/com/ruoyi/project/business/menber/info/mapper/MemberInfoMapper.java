@@ -1,6 +1,7 @@
 package com.ruoyi.project.business.menber.info.mapper;
 
 import com.ruoyi.project.business.menber.info.domain.MemberInfo;
+import com.ruoyi.project.business.menber.type.domain.MemberType;
 
 import java.util.List;
 
@@ -61,4 +62,9 @@ public interface MemberInfoMapper {
     public int deleteBuMemberInfoByIds(Long[] ids);
 
     int updateMemberPrice(MemberInfo memberInfo);
+
+    List<MemberInfo> listByIds(List<Long> ids);
+
+    int updateMemberPriceBatch(List<MemberInfo> memberInfoList);
+
 }

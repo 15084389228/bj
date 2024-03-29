@@ -67,6 +67,13 @@
         <include refid="selectBuMemberInfoVo"/>
         where id = #{id}
     </select>
+    <select id="listByIds" resultMap="BuMemberInfoResult">
+        <include refid="selectBuMemberInfoVo"/>
+        where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 
     <insert id="insertBuMemberInfo" parameterType="com.ruoyi.project.business.menber.info.domain.MemberInfo" useGeneratedKeys="true"
             keyProperty="id">
@@ -136,8 +143,10 @@
             </if>
             <if test="memberTypeId != null ">member_type_id = #{memberTypeId},
             </if>
-            <if test="memberDiscount != null ">member_discount = #{memberDiscount},
-            </if>
+            <choose>
+                <when test="memberDiscount != null ">member_discount = #{memberDiscount},</when>
+                <otherwise>member_discount = null,</otherwise>
+            </choose>
             <if test="remark != null  and remark != ''">remark = #{remark},
             </if>
             <if test="status != null  and status != ''">status = #{status},
@@ -159,6 +168,13 @@
         update bu_member_info
         set member_price = #{memberPrice}
         where id = #{id}
+    </update>
+    <update id="updateMemberPriceBatch">
+        <foreach collection="list" item="item" separator=";">
+            update bu_member_info
+            set member_price = #{item.memberPrice}
+            where id = #{item.id}
+        </foreach>
     </update>
 
     <delete id="deleteBuMemberInfoById" parameterType="Long">

@@ -29,13 +29,15 @@
         />
       </el-form-item>
       <el-form-item label="会员卡" prop="memberTypeId">
-        <el-input
-          v-model="queryParams.memberTypeId"
-          placeholder="请选择会员卡"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
+        <el-select v-model="queryParams.memberTypeId" placeholder="请选择会员卡" clearable
+                   size="small">
+          <el-option
+            v-for="dict in memberTypeOptions"
+            :key="dict.id"
+            :label="dict.memberTypeName"
+            :value="dict.id"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="会员专属折扣" prop="memberDiscount">
         <el-input
@@ -66,6 +68,16 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
+          type="warning"
+          icon="el-icon-s-finance"
+          size="mini"
+          @click="handleRecharge"
+          v-hasPermi="['system:info:edit']"
+        >批量充值
+        </el-button>
+      </el-col>
+      <el-col :span="1.5">
+        <el-button
           type="primary"
           icon="el-icon-plus"
           size="mini"
@@ -85,26 +97,21 @@
         >删除
         </el-button>
       </el-col>
-<!--      <el-col :span="1.5">-->
-<!--        <el-button-->
-<!--          type="warning"-->
-<!--          icon="el-icon-download"-->
-<!--          size="mini"-->
-<!--          @click="handleExport"-->
-<!--          v-hasPermi="['system:info:export']"-->
-<!--        >导出-->
-<!--        </el-button>-->
-<!--      </el-col>-->
+
     </el-row>
 
     <el-table v-loading="loading" :data="infoList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center"/>
-      <el-table-column label="主键id" align="center" prop="id"/>
       <el-table-column label="会员名称" align="center" prop="memberName"/>
       <el-table-column label="会员手机号" align="center" prop="memberPhone"/>
       <el-table-column label="会员余额" align="center" prop="memberPrice"/>
-      <el-table-column label="会员卡id" align="center" prop="memberTypeId"/>
-      <el-table-column label="会员折扣(专属折扣,覆盖会员卡折扣)" align="center" prop="memberDiscount"/>
+      <el-table-column label="会员卡" align="center" prop="memberType.memberTypeName"/>
+      <el-table-column label="会员折扣" align="center" prop="memberDiscount">
+        <template slot-scope="scope">
+          <span v-if="scope.row.memberDiscount">{{ scope.row.memberDiscount }}</span>
+          <span v-else>{{ scope.row.memberType.memberDiscount }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="备注" align="center" prop="remark"/>
       <el-table-column label="会员状态" align="center" prop="status" >
         <template slot-scope="scope">
@@ -115,6 +122,14 @@
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-s-finance"
+            @click="handleRecharge(scope.row)"
+            v-hasPermi="['system:info:edit']"
+          >充值
+          </el-button>
           <el-button
             size="mini"
             type="text"
@@ -131,6 +146,7 @@
             v-hasPermi="['system:info:remove']"
           >删除
           </el-button>
+
         </template>
       </el-table-column>
     </el-table>
@@ -145,7 +161,7 @@
 
     <!-- 添加或修改会员对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+      <el-form ref="form" :model="form" :rules="rules" label-width="120px">
         <el-form-item label="会员名称" prop="memberName">
           <el-input v-model="form.memberName" placeholder="请输入会员名称"/>
         </el-form-item>
@@ -155,11 +171,20 @@
         <el-form-item label="会员余额" prop="memberPrice">
           <el-input v-model="form.memberPrice" placeholder="请输入会员余额"/>
         </el-form-item>
-        <el-form-item label="会员卡id" prop="memberTypeId">
-          <el-input v-model="form.memberTypeId" placeholder="请输入会员卡id"/>
+        <el-form-item label="会员卡" prop="memberTypeId">
+          <el-select v-model="form.memberTypeId" placeholder="请选择会员卡">
+            <el-option
+              v-for="dict in memberTypeOptions"
+              :key="dict.id"
+              :label="dict.memberTypeName"
+              :value="dict.id"
+            />
+          </el-select>
         </el-form-item>
-        <el-form-item label="会员折扣(专属折扣,覆盖会员卡折扣)" prop="memberDiscount">
-          <el-input v-model="form.memberDiscount" placeholder="请输入会员折扣(专属折扣,覆盖会员卡折扣)"/>
+        <el-form-item label="会员折扣" prop="memberDiscount">
+          <el-tooltip placement="top" content="专属折扣,覆盖会员卡折扣">
+            <el-input v-model="form.memberDiscount" placeholder="请输入会员折扣"/>
+          </el-tooltip>
         </el-form-item>
         <el-form-item label="会员状态" prop="status">
           <el-radio-group v-model="form.status">
@@ -170,12 +195,24 @@
             >{{dict.dictLabel}}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="删除标志" prop="delFlag">
-          <el-input v-model="form.delFlag" placeholder="请输入删除标志"/>
-        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
+    <!-- 添加或修改会员对话框 -->
+    <el-dialog :title="title" :visible.sync="rechargeOpen" width="500px" append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="120px">
+        <el-form-item label="会员名称" prop="memberName">
+          <el-input v-model="form.memberName" v-show="showName" disabled/>
+        </el-form-item>
+        <el-form-item label="充值金额" prop="memberPrice">
+          <el-input v-model="form.memberPrice" placeholder="请输入充值金额"/>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitRecharge">确 定</el-button>
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
@@ -189,8 +226,9 @@ import {
   delInfo,
   addInfo,
   updateInfo,
-  exportInfo
+  exportInfo, recharge
 } from "@/api/business/member/info/info";
+import {getMemberType} from "@/api/business/member/type/type";
 
 export default {
   name: "Info",
@@ -205,6 +243,8 @@ export default {
       // 非多个禁用
       multiple: true,
       statusOptions:[],
+      memberTypeOptions: [],
+      showName: false,
       // 总条数
       total: 0,
       // 会员表格数据
@@ -213,6 +253,7 @@ export default {
       title: "",
       // 是否显示弹出层
       open: false,
+      rechargeOpen: false,
       // 查询参数
       queryParams: {
         pageNum: 1,
@@ -237,6 +278,9 @@ export default {
     this.getDicts("common_status").then(response => {
       this.statusOptions = response.data;
     });
+    getMemberType().then(res => {
+      this.memberTypeOptions = res.data
+    })
   },
   methods: {
     /** 查询会员列表 */
@@ -251,6 +295,7 @@ export default {
     // 取消按钮
     cancel() {
       this.open = false;
+      this.rechargeOpen = false;
       this.reset();
     },
     // 表单重置
@@ -308,6 +353,38 @@ export default {
         this.form = response.data;
         this.open = true;
         this.title = "修改会员";
+      });
+    },
+    handleRecharge(row) {
+      this.reset();
+      const id = row.id || this.ids
+      if (row.id) {
+        getInfo(id).then(response => {
+          this.form = response.data;
+          //清空充值金额
+          this.form.memberPrice = ''
+          this.rechargeOpen = true;
+          this.showName = true;
+          this.title = "会员充值";
+        });
+      } else {
+        this.rechargeOpen = true;
+        this.showName = false;
+        this.title = "会员充值";
+      }
+    },
+    submitRecharge() {
+      this.$refs["form"].validate(valid => {
+        if (valid) {
+          this.form.ids = this.form.id ? [this.form.id] : this.ids
+          recharge(this.form).then(response => {
+            if (response.code === 200) {
+              this.msgSuccess("充值成功");
+              this.cancel()
+              this.getList();
+            }
+          });
+        }
       });
     },
     /** 提交按钮 */
