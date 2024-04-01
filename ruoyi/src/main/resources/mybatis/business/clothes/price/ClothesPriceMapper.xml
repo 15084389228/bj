@@ -25,6 +25,13 @@
         from bu_clothes_price
         where id = #{id}
     </select>
+    <select id="listByOrderId" resultMap="ClothesPriceMap">
+        select id,clothes_type, clothes_name, clothes_price, clothes_group, order_num, status, del_flag,
+                                create_by, create_time, update_by, update_time
+
+        from bu_clothes_price
+        where id in (select clothes_id from bu_clothes_order_detail where order_id =#{id})
+    </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ClothesPriceMap">

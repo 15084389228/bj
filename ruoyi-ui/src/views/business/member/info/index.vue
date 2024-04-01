@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="68px">
+    <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="120px">
       <el-form-item label="会员名称" prop="memberName">
         <el-input
           v-model="queryParams.memberName"
@@ -19,15 +19,6 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="会员余额" prop="memberPrice">
-        <el-input
-          v-model="queryParams.memberPrice"
-          placeholder="请输入会员余额"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
       <el-form-item label="会员卡" prop="memberTypeId">
         <el-select v-model="queryParams.memberTypeId" placeholder="请选择会员卡" clearable
                    size="small">
@@ -38,15 +29,6 @@
             :value="dict.id"
           />
         </el-select>
-      </el-form-item>
-      <el-form-item label="会员专属折扣" prop="memberDiscount">
-        <el-input
-          v-model="queryParams.memberDiscount"
-          placeholder="请输入会员折扣"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
       </el-form-item>
       <el-form-item label="会员状态" prop="status">
         <el-select v-model="queryParams.status" placeholder="请选择会员状态" clearable

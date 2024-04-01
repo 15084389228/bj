@@ -25,6 +25,13 @@ public interface ClothesPriceMapper {
     ClothesPrice queryById(Integer id);
 
     /**
+     * 根据订单id获取所洗衣服
+     * @param id
+     * @return
+     */
+    List<ClothesPrice> listByOrderId(Integer id);
+
+    /**
      * 查询指定行数据
      *
      * @param clothesPrice 查询条件
