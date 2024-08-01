@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ch.business.clothes.order.mapper.BuClothesOrderMapper">
+
+    <resultMap type="ClothesOrder" id="BuClothesOrderResult">
+        <result property="id" column="id"/>
+        <result property="clientId" column="client_id"/>
+        <result property="clientPhone" column="client_phone"/>
+        <result property="clientName" column="client_name"/>
+        <result property="orderPrice" column="order_price"/>
+        <result property="orderDiscount" column="order_discount"/>
+        <result property="actualPrice" column="actual_price"/>
+        <result property="remark" column="remark"/>
+        <result property="paperNum" column="paper_num"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="status" column="status"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <resultMap type="ClothesOrder" id="orderDetailResult">
+        <result property="id" column="id"/>
+        <result property="clientId" column="client_id"/>
+        <result property="clientPhone" column="client_phone"/>
+        <result property="clientName" column="client_name"/>
+        <result property="orderPrice" column="order_price"/>
+        <result property="orderDiscount" column="order_discount"/>
+        <result property="actualPrice" column="actual_price"/>
+        <result property="remark" column="remark"/>
+        <result property="paperNum" column="paper_num"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="status" column="status"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <association property="clothesPriceList" column="id" select="com.ruoyi.project.business.clothes.price.mapper.ClothesPriceMapper.listByOrderId"></association>
+    </resultMap>
+
+    <sql id="selectBuClothesOrderVo">
+        select id,
+               client_id,
+               client_phone,
+               client_name,
+               order_price,
+               order_discount,
+               actual_price,
+               remark,
+               paper_num,
+               order_num,
+               status,
+               del_flag,
+               create_by,
+               create_time,
+               update_by,
+               update_time
+        from bu_clothes_order
+    </sql>
+
+    <select id="selectBuClothesOrderList" parameterType="ClothesOrder" resultMap="BuClothesOrderResult">
+        <include refid="selectBuClothesOrderVo"/>
+        <where>
+            <if test="clientId != null ">
+                and client_id = #{clientId}
+            </if>
+            <if test="clientPhone != null  and clientPhone != ''">
+                and client_phone = #{clientPhone}
+            </if>
+            <if test="clientName != null  and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="orderPrice != null ">
+                and order_price = #{orderPrice}
+            </if>
+            <if test="orderDiscount != null ">
+                and order_discount = #{orderDiscount}
+            </if>
+            <if test="actualPrice != null ">
+                and actual_price = #{actualPrice}
+            </if>
+            <if test="paperNum != null  and paperNum != ''">
+                and paper_num = #{paperNum}
+            </if>
+            <if test="orderNum != null  and orderNum != ''">
+                and order_num = #{orderNum}
+            </if>
+            <if test="status != null  and status != ''">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectBuClothesOrderById" parameterType="Long" resultMap="BuClothesOrderResult">
+        <include refid="selectBuClothesOrderVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertBuClothesOrder" parameterType="ClothesOrder" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into bu_clothes_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="clientId != null ">client_id,
+            </if>
+            <if test="clientPhone != null  and clientPhone != ''">client_phone,
+            </if>
+            <if test="clientName != null  and clientName != ''">client_name,
+            </if>
+            <if test="orderPrice != null ">order_price,
+            </if>
+            <if test="orderDiscount != null ">order_discount,
+            </if>
+            <if test="actualPrice != null ">actual_price,
+            </if>
+            <if test="remark != null  and remark != ''">remark,
+            </if>
+            <if test="paperNum != null  and paperNum != ''">paper_num,
+            </if>
+            <if test="orderNum != null  and orderNum != ''">order_num,
+            </if>
+            <if test="status != null  and status != ''">status,
+            </if>
+            <if test="delFlag != null  and delFlag != ''">del_flag,
+            </if>
+            <if test="createBy != null  and createBy != ''">create_by,
+            </if>
+            <if test="createTime != null ">create_time,
+            </if>
+            <if test="updateBy != null  and updateBy != ''">update_by,
+            </if>
+            <if test="updateTime != null ">update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="clientId != null ">#{clientId},
+            </if>
+            <if test="clientPhone != null  and clientPhone != ''">#{clientPhone},
+            </if>
+            <if test="clientName != null  and clientName != ''">#{clientName},
+            </if>
+            <if test="orderPrice != null ">#{orderPrice},
+            </if>
+            <if test="orderDiscount != null ">#{orderDiscount},
+            </if>
+            <if test="actualPrice != null ">#{actualPrice},
+            </if>
+            <if test="remark != null  and remark != ''">#{remark},
+            </if>
+            <if test="paperNum != null  and paperNum != ''">#{paperNum},
+            </if>
+            <if test="orderNum != null  and orderNum != ''">#{orderNum},
+            </if>
+            <if test="status != null  and status != ''">#{status},
+            </if>
+            <if test="delFlag != null  and delFlag != ''">#{delFlag},
+            </if>
+            <if test="createBy != null  and createBy != ''">#{createBy},
+            </if>
+            <if test="createTime != null ">#{createTime},
+            </if>
+            <if test="updateBy != null  and updateBy != ''">#{updateBy},
+            </if>
+            <if test="updateTime != null ">#{updateTime},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertDetail" useGeneratedKeys="true">
+        insert into bu_clothes_order_detail(order_id,clothes_id,create_by,createTime)
+        values
+            <foreach collection="list" separator="," item="item">
+                (#{orderId},#{clothesId},#{createBy},#{createTime})
+            </foreach>
+    </insert>
+
+    <update id="updateBuClothesOrder" parameterType="ClothesOrder">
+        update bu_clothes_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="clientId != null ">client_id = #{clientId},
+            </if>
+            <if test="clientPhone != null  and clientPhone != ''">client_phone = #{clientPhone},
+            </if>
+            <if test="clientName != null  and clientName != ''">client_name = #{clientName},
+            </if>
+            <if test="orderPrice != null ">order_price = #{orderPrice},
+            </if>
+            <if test="orderDiscount != null ">order_discount = #{orderDiscount},
+            </if>
+            <if test="actualPrice != null ">actual_price = #{actualPrice},
+            </if>
+            <if test="remark != null  and remark != ''">remark = #{remark},
+            </if>
+            <if test="paperNum != null  and paperNum != ''">paper_num = #{paperNum},
+            </if>
+            <if test="orderNum != null  and orderNum != ''">order_num = #{orderNum},
+            </if>
+            <if test="status != null  and status != ''">status = #{status},
+            </if>
+            <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},
+            </if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},
+            </if>
+            <if test="createTime != null ">create_time = #{createTime},
+            </if>
+            <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null ">update_time = #{updateTime},
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBuClothesOrderById" parameterType="Long">
+        delete
+        from bu_clothes_order
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteBuClothesOrderByIds" parameterType="String">
+        delete from bu_clothes_order where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,4 +1,4 @@
-package com.ruoyi.framework.config;
+package com.ch.framework.config;
 
 import java.util.Properties;
 import org.springframework.context.annotation.Bean;
