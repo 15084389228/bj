@@ -30,7 +30,7 @@ public class MemberType implements Serializable {
     /**
      * 会员折扣
      */
-    private BigDecimal memberDiscount;
+    private Long memberDiscount;
     /**
      * 备注
      */
