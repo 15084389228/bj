@@ -84,6 +84,7 @@ export default {
       loading: true,
       // 选中数组
       ids: [],
+      chooseItem:[],
       // 非单个禁用
       single: true,
       // 非多个禁用
@@ -180,6 +181,8 @@ export default {
     // 多选框选中数据
     handleSelectionChange(selection) {
       this.ids = selection.map(item => item.id)
+      this.chooseItem = selection
+      console.log(this.chooseItem)
       this.single = selection.length!=1
       this.multiple = !selection.length
     },

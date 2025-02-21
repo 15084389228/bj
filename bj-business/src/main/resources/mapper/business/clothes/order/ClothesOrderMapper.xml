@@ -39,7 +39,7 @@
         <result property="createTime" column="create_time"/>
         <result property="updateBy" column="update_by"/>
         <result property="updateTime" column="update_time"/>
-        <association property="clothesPriceList" column="id" select="com.ruoyi.project.business.clothes.price.mapper.ClothesPriceMapper.listByOrderId"></association>
+        <association property="clothesPriceList" column="id" select="com.ch.business.clothes.price.mapper.ClothesPriceMapper.listByOrderId"></association>
     </resultMap>
 
     <sql id="selectBuClothesOrderVo">

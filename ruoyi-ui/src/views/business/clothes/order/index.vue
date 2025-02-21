@@ -182,11 +182,11 @@
         show-summary
         style="width: 100%">
         <el-table-column
-          prop="name"
+          prop="clothesName"
           label="衣物名称">
         </el-table-column>
         <el-table-column
-          prop="amount1"
+          prop="clothesPrice"
           sortable
           label="衣物价格">
         </el-table-column>
@@ -243,7 +243,11 @@
       </div>
     </el-dialog>
     <el-dialog :visible.sync="chooseOpen" width="800px" append-to-body>
-    <price-choose></price-choose>
+    <price-choose ref="priceChoose"></price-choose>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitChoose">确 定</el-button>
+        <el-button @click="chooseOpen=false">取 消</el-button>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -391,6 +395,10 @@ export default {
       });
     },
     /** 提交按钮 */
+    submitChoose:function (){
+     this.tableData= this.$refs.priceChoose.chooseItem
+      this.chooseOpen=false
+    },
     submitForm: function () {
       this.$refs["form"].validate(valid => {
         if (valid) {

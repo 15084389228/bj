@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ruoyi.project.business.menber.info.mapper.MemberInfoMapper">
+<mapper namespace="com.ch.business.member.info.mapper.MemberInfoMapper">
 
-    <resultMap type="com.ruoyi.project.business.menber.info.domain.MemberInfo" id="BuMemberInfoResult">
+    <resultMap type="com.ch.business.member.info.domain.MemberInfo" id="BuMemberInfoResult">
         <result property="id" column="id"/>
         <result property="memberName" column="member_name"/>
         <result property="memberPhone" column="member_phone"/>
@@ -19,7 +19,7 @@
         <result property="updateBy" column="update_by"/>
         <result property="updateTime" column="update_time"/>
         <association property="memberType" column="member_type_id"
-                     select="com.ruoyi.project.business.menber.type.mapper.MemberTypeMapper.queryById"></association>
+                     select="com.ch.business.member.type.mapper.MemberTypeMapper.queryById"></association>
     </resultMap>
 
     <sql id="selectBuMemberInfoVo">
@@ -39,7 +39,7 @@
         from bu_member_info
     </sql>
 
-    <select id="selectBuMemberInfoList" parameterType="com.ruoyi.project.business.menber.info.domain.MemberInfo" resultMap="BuMemberInfoResult">
+    <select id="selectBuMemberInfoList" parameterType="com.ch.business.member.info.domain.MemberInfo" resultMap="BuMemberInfoResult">
         <include refid="selectBuMemberInfoVo"/>
         <where>
             <if test="memberName != null  and memberName != ''">
@@ -75,7 +75,7 @@
         </foreach>
     </select>
 
-    <insert id="insertBuMemberInfo" parameterType="com.ruoyi.project.business.menber.info.domain.MemberInfo" useGeneratedKeys="true"
+    <insert id="insertBuMemberInfo" parameterType="com.ch.business.member.info.domain.MemberInfo" useGeneratedKeys="true"
             keyProperty="id">
         insert into bu_member_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -132,7 +132,7 @@
         </trim>
     </insert>
 
-    <update id="updateBuMemberInfo" parameterType="com.ruoyi.project.business.menber.info.domain.MemberInfo">
+    <update id="updateBuMemberInfo" parameterType="com.ch.business.member.info.domain.MemberInfo">
         update bu_member_info
         <trim prefix="SET" suffixOverrides=",">
             <if test="memberName != null  and memberName != ''">member_name = #{memberName},

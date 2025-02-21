@@ -3,6 +3,7 @@ package com.ch.business.member.info.service.impl;
 import com.ch.business.member.info.domain.MemberInfo;
 import com.ch.business.member.info.mapper.MemberInfoMapper;
 import com.ch.business.member.info.service.IBuMemberInfoService;
+import com.ch.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
